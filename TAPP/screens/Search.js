@@ -48,16 +48,11 @@ class Search extends React.Component {
     return (
       <View style={{ flex: 1, margin: 20 }}>
         <View style={{ flex: 1, marginTop: 20 }}>
-          <MapInput notifyChange={loc => this.getCoordsFromName(loc)} />
+          <MapInput
+            notifyChange={loc => this.getCoordsFromName(loc)}
+            navigation={this.props.navigation}
+          />
         </View>
-        {this.state.region["latitude"] ? (
-          <View style={{ flex: 3 }}>
-            <MyMapView
-              region={this.state.region}
-              onRegionChange={reg => this.onMapRegionChange(reg)}
-            />
-          </View>
-        ) : null}
       </View>
     );
   }

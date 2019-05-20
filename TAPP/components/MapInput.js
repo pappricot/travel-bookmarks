@@ -14,6 +14,7 @@ class MapInput extends React.Component {
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           this.props.notifyChange(details.geometry.location);
+          this.props.navigation.navigate("Result");
         }}
         query={{
           key: "AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A",
