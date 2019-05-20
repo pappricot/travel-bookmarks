@@ -6,7 +6,8 @@ import { getLocation } from "../services/LocationService";
 
 class Search extends React.Component {
   state = {
-    region: {}
+    region: {},
+    mapVisible: false
   };
 
   componentDidMount() {
@@ -40,19 +41,36 @@ class Search extends React.Component {
     });
   }
 
-  onMapRegionChange(region) {
+  onMapRegionChange(region, prevState) {
     this.setState({ region });
   }
 
+  toggleMap = () => {
+    this.setState(prevState => ({
+      mapVisible: !prevState.mapVisible
+    }));
+  };
   render() {
     return (
       <View style={{ flex: 1, margin: 20 }}>
-        <View style={{ flex: 1, marginTop: 20 }}>
-          <MapInput
-            notifyChange={loc => this.getCoordsFromName(loc)}
-            navigation={this.props.navigation}
-          />
-        </View>
+        {this.state.mapVisible ? null : (
+          <View style={{ flex: 0.4 }}>
+            <MapInput
+              notifyChange={
+                (loc => this.getCoordsFromName(loc), this.toggleMap)
+              }
+              navigation={this.props.navigation}
+            />
+          </View>
+        )}
+        {this.state.region["latitude"] && this.state.mapVisible ? (
+          <View style={{ flex: 1 }}>
+            <MyMapView
+              region={this.state.region}
+              onRegionChange={reg => this.onMapRegionChange(reg)}
+            />
+          </View>
+        ) : null}
       </View>
     );
   }

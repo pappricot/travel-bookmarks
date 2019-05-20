@@ -3,22 +3,21 @@ import { View, TouchableOpacity } from "react-native";
 import MyMapView from "../components/MapView";
 import { getLocation } from "../services/LocationService";
 
-class Search extends React.Component {
+class Result extends React.Component {
   state = {
     region: {}
   };
-
-  onMapRegionChange(region) {
-    this.setState({ region });
-  }
+  onMapRegionChange = region => {
+    this.setState({ region: this.props.region });
+  };
 
   render() {
     return (
       <View style={{ flex: 1, margin: 20 }}>
-        {this.state.region["latitude"] ? (
+        {this.props.region["latitude"] ? (
           <View style={{ flex: 1 }}>
             <MyMapView
-              region={this.state.region}
+              region={this.props.region}
               onRegionChange={reg => this.onMapRegionChange(reg)}
             />
           </View>
@@ -28,4 +27,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default Result;
