@@ -69,7 +69,7 @@ class Search extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         {this.state.mapVisible ? null : (
-          <View style={{ flex: 0.4, margin: 20 }}>
+          <View style={{ flex: 0.4, margin: 20, top: 30 }}>
             <MapInput
               notifyChange={
                 ((loc, adr) => this.getCoordsFromName(loc, adr), this.toggleMap)

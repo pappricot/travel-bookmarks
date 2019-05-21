@@ -86,7 +86,26 @@ class HomeScreen extends React.Component {
         </View>
 
         {this.props.changePin ? (
-          <Text>Pin</Text>
+          <ScrollView horizontal>
+            <View style={{ marginRight: 10 }}>
+              <TouchableOpacity
+                style={{
+                  position: "absolute",
+                  zIndex: 1,
+                  right: 20,
+                  bottom: 90
+                }}
+                onPress={() => {
+                  this.props.navigation.navigate("Homescreen");
+                }}
+              >
+                <Image source={require("../assets/images/goIcon.png")} />
+              </TouchableOpacity>
+              <Image
+                source={require("../assets/images/placeCardBackground.png")}
+              />
+            </View>
+          </ScrollView>
         ) : (
           <LinearGradient
             colors={["white", "#CEDCDF"]}
