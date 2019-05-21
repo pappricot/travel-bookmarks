@@ -4,7 +4,7 @@ import { MapView } from "expo";
 const MyMapView = props => {
   return (
     <MapView
-      style={{ flex: 1 }}
+      style={{ alignSelf: "stretch", height: 200, marginTop: 30 }}
       region={props.region}
       showsUserLocation={true}
       onRegionChange={reg => props.onRegionChange(reg)}

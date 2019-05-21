@@ -11,10 +11,15 @@ import {
   Button
 } from "react-native";
 import { LinearGradient } from "expo";
+import { connect } from "react-redux";
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
+  };
+
+  state = {
+    changePin: this.props.changePin
   };
 
   render() {
@@ -64,7 +69,7 @@ export default class HomeScreen extends React.Component {
                     lineHeight: 15
                   }}
                 >
-                  Today is 72C and Sunny
+                  Today is 72C and Sunny {this.props.changePin}
                 </Text>
               </View>
 
@@ -80,41 +85,45 @@ export default class HomeScreen extends React.Component {
           </ImageBackground>
         </View>
 
-        <LinearGradient
-          colors={["white", "#CEDCDF"]}
-          style={{
-            position: "relative",
-            left: 0,
-            right: 0,
-            top: 0,
-            flex: 3
-          }}
-        >
-          <View style={styles.body}>
-            <Text
-              style={{
-                fontFamily: "sf-pro-display-regular",
-                color: "rgba(128,128,128,1)",
-                fontSize: 18,
-                letterSpacing: 0.55,
-                lineHeight: 21
-              }}
-            >
-              This trip is empty
-            </Text>
-            <Text
-              style={{
-                fontFamily: "sf-pro-display-regular",
-                color: "rgba(172,183,185,1)",
-                fontSize: 13,
-                letterSpacing: 0.4,
-                lineHeight: 15
-              }}
-            >
-              Click the blue plus to pin a place
-            </Text>
-          </View>
-        </LinearGradient>
+        {this.props.changePin ? (
+          <Text>Pin</Text>
+        ) : (
+          <LinearGradient
+            colors={["white", "#CEDCDF"]}
+            style={{
+              position: "relative",
+              left: 0,
+              right: 0,
+              top: 0,
+              flex: 3
+            }}
+          >
+            <View style={styles.body}>
+              <Text
+                style={{
+                  fontFamily: "sf-pro-display-regular",
+                  color: "rgba(128,128,128,1)",
+                  fontSize: 18,
+                  letterSpacing: 0.55,
+                  lineHeight: 21
+                }}
+              >
+                This trip is empty
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "sf-pro-display-regular",
+                  color: "rgba(172,183,185,1)",
+                  fontSize: 13,
+                  letterSpacing: 0.4,
+                  lineHeight: 15
+                }}
+              >
+                Click the blue plus to pin a place
+              </Text>
+            </View>
+          </LinearGradient>
+        )}
 
         <View style={styles.footer_container}>
           <View style={styles.footer_panel}>
@@ -174,6 +183,12 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  changePin: state.main.options
+});
+
+export default connect(mapStateToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
