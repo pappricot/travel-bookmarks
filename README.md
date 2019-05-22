@@ -10,13 +10,13 @@ TAPP Code Challenge for Software Engineer Candidates
 
 ## Candidate Information (Fill out with your info)
 
-Name: _Your Name_
+Name: Anya Nguyen
 
-Email: _Your email_
+Email: anya.p.nguyen@gmail.com
 
-Resume: _link to your resume_
+Resume (Personal project in progress, using p5.js): https://objective-me.herokuapp.com/
 
-Additional: _Such as Github or LinkedIn, etc_
+Additional: Github: pappricot, LinkedIn: ane4ka
 
 ## Intro
 

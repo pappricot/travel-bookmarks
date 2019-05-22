@@ -105,6 +105,7 @@ class Search extends React.Component {
           <ScrollView>
             <View style={style.scrollStyle}>
               <TouchableOpacity
+                button
                 style={style.backButton}
                 onPress={() => {
                   this.props.navigation.navigate("HomeScreen");
@@ -188,9 +189,9 @@ const style = StyleSheet.create({
     alignItems: "center"
   },
   backButton: {
-    position: "absolute",
+    // position: "absolute",
     zIndex: 1,
-    left: 20,
+    right: 150,
     top: 60
   },
   infoWrapper: {
