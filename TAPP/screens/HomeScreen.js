@@ -85,8 +85,8 @@ class HomeScreen extends React.Component {
           </ImageBackground>
         </View>
 
-        {this.props.changePin ? (
-          <ScrollView horizontal>
+        <ScrollView horizontal>
+          {this.props.pins.map((pin, i) => (
             <View style={{ marginRight: 10 }}>
               <TouchableOpacity
                 style={{
@@ -96,7 +96,7 @@ class HomeScreen extends React.Component {
                   bottom: 90
                 }}
                 onPress={() => {
-                  this.props.navigation.navigate("Homescreen");
+                  this.props.navigation.navigate("Result");
                 }}
               >
                 <Image source={require("../assets/images/goIcon.png")} />
@@ -105,44 +105,8 @@ class HomeScreen extends React.Component {
                 source={require("../assets/images/placeCardBackground.png")}
               />
             </View>
-          </ScrollView>
-        ) : (
-          <LinearGradient
-            colors={["white", "#CEDCDF"]}
-            style={{
-              position: "relative",
-              left: 0,
-              right: 0,
-              top: 0,
-              flex: 3
-            }}
-          >
-            <View style={styles.body}>
-              <Text
-                style={{
-                  fontFamily: "sf-pro-display-regular",
-                  color: "rgba(128,128,128,1)",
-                  fontSize: 18,
-                  letterSpacing: 0.55,
-                  lineHeight: 21
-                }}
-              >
-                This trip is empty
-              </Text>
-              <Text
-                style={{
-                  fontFamily: "sf-pro-display-regular",
-                  color: "rgba(172,183,185,1)",
-                  fontSize: 13,
-                  letterSpacing: 0.4,
-                  lineHeight: 15
-                }}
-              >
-                Click the blue plus to pin a place
-              </Text>
-            </View>
-          </LinearGradient>
-        )}
+          ))}
+        </ScrollView>
 
         <View style={styles.footer_container}>
           <View style={styles.footer_panel}>
@@ -204,7 +168,8 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  changePin: state.main.options
+  changePin: state.main.options.changePin,
+  pins: state.main.pins
 });
 
 export default connect(mapStateToProps)(HomeScreen);

@@ -25,7 +25,7 @@ export default class App extends React.Component {
       return (
         <Provider store={store}>
           <View style={styles.container}>
-            {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+            {/* {Platform.OS === "ios" && <StatusBar barStyle="default" />} */}
             <AppNavigator />
           </View>
         </Provider>
@@ -66,6 +66,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight
   }
 });

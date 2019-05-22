@@ -1,7 +1,8 @@
-import { SAVE_DATA_DEV } from "./actions/types";
+import { SAVE_DATA_DEV, SAVE_PIN } from "./actions/types";
 
 const initialState = {
-  options: {}
+  options: {},
+  pins: []
 };
 
 export default (state = initialState, action) => {
@@ -14,6 +15,13 @@ export default (state = initialState, action) => {
         options: {
           [action.dataField]: action.data
         }
+      };
+    }
+    case SAVE_PIN: {
+      console.warn("data", action.address);
+      return {
+        ...state,
+        pins: [...state.pins, action.address]
       };
     }
 

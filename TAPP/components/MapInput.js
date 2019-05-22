@@ -1,6 +1,7 @@
 import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { save_data_dev } from "../redux/actions/actions";
+import { save_pin } from "../redux/actions/actions";
+import { connect } from "react-redux";
 
 class MapInput extends React.Component {
   render() {
@@ -18,11 +19,14 @@ class MapInput extends React.Component {
             details.geometry.location,
             details.formatted_address
           );
-          // this.props.dispatch(save_data_dev("data", true));
+          this.props.getData(details);
+
+          this.props.dispatch(save_pin(details));
         }}
         query={{
           key: "AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A",
-          language: "en"
+          language: "en",
+          fields: "basic"
         }}
         nearbyPlacesAPI="GooglePlacesSearch"
         debounce={200}
@@ -30,4 +34,4 @@ class MapInput extends React.Component {
     );
   }
 }
-export default MapInput;
+export default connect()(MapInput);

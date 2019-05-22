@@ -11,7 +11,11 @@ class Search extends React.Component {
     region: {},
     mapVisible: false,
     address: "",
-    changePin: false
+    rating: "",
+    name: "",
+    image: null,
+    changePin: false,
+    photo: ""
   };
 
   componentDidMount() {
@@ -33,17 +37,15 @@ class Search extends React.Component {
         latitude: location.latitude,
         longitude: location.longitude,
         latitudeDelta: 0.003,
-        longitudeDelta: 0.003,
-        formatted_address: location.formatted_address
+        longitudeDelta: 0.003
       }
     });
   }
 
-  getCoordsFromName(loc, address) {
+  getCoordsFromName(loc) {
     this.updateState({
       latitude: loc.lat,
-      longitude: loc.lng,
-      address: address
+      longitude: loc.lng
     });
   }
 
@@ -57,6 +59,15 @@ class Search extends React.Component {
     }));
   };
 
+  getData = data => {
+    this.setState({
+      address: data.formatted_address, // selected address
+      rating: data.rating,
+      name: data.name,
+      photo: data.photos && data.photos.length > 0 ? data.photos[0] : null
+    });
+  };
+
   changePin = () => {
     this.setState(prevState => ({
       changePin: !prevState.changePin
@@ -66,14 +77,25 @@ class Search extends React.Component {
   };
 
   render() {
+    console.warn(this.state.photo);
+
+    const photoUri = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
+      this.state.photo.photo_reference
+    }&key=AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A`;
+
+    console.warn(photoUri);
+
+    window["state"] = this.state;
+
     return (
       <View style={{ flex: 1 }}>
         {this.state.mapVisible ? null : (
           <View style={{ flex: 0.4, margin: 20, top: 30 }}>
             <MapInput
               notifyChange={
-                ((loc, adr) => this.getCoordsFromName(loc, adr), this.toggleMap)
+                (loc => this.getCoordsFromName(loc), this.toggleMap)
               }
+              getData={data => this.getData(data)}
             />
           </View>
         )}
@@ -102,7 +124,11 @@ class Search extends React.Component {
               </TouchableOpacity>
 
               <Image
-                source={require("../assets/images/placeCardBackground2x.png")}
+                style={{
+                  width: this.state.photo.width,
+                  height: this.state.photo.height
+                }}
+                source={{ uri: photoUri }} //for google image
               />
             </View>
 
@@ -119,6 +145,10 @@ class Search extends React.Component {
                 borderColor: "#fff"
               }}
             >
+              <View>
+                <Text>{this.state.name}</Text>
+                <Text>{this.state.rating}</Text>
+              </View>
               <View
                 style={{
                   flex: 1,
@@ -161,14 +191,7 @@ class Search extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1, alignSelf: "center" }}>
-                <Text>
-                  {this.state.region.longitude}
-                  {/* formatted_address is supposed to be here instead of lat and lng but it didn't display, to not leave it blank i added lat and lng */}
-                </Text>
-                <Text>
-                  {this.state.region.latitude}
-                  {/* formatted_address is supposed to be here instead of lat and lng but it didn't display, to not leave it blank i added lat and lng */}
-                </Text>
+                <Text>{this.state.address}</Text>
               </View>
               <View>
                 <MyMapView
@@ -185,7 +208,7 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  changePin: state.main
+  // changePin: state.main
 });
 
 export default connect(mapStateToProps)(Search);

@@ -1,30 +1,41 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import PropTypes from "prop-types";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import MapInput from "../components/MapInput";
 import MyMapView from "../components/MapView";
 import { getLocation } from "../services/LocationService";
+import { connect } from "react-redux";
 
 class Result extends React.Component {
-  state = {
-    region: {}
-  };
-  onMapRegionChange = region => {
-    this.setState({ region: this.props.region });
+  static PropTypes = {
+    address: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    rating: PropTypes.string,
+    title: PropTypes.string.isRequired
   };
 
   render() {
     return (
-      <View style={{ flex: 1, margin: 20 }}>
-        {this.props.region["latitude"] ? (
-          <View style={{ flex: 1 }}>
-            <MyMapView
-              region={this.props.region}
-              onRegionChange={reg => this.onMapRegionChange(reg)}
-            />
-          </View>
-        ) : null}
-      </View>
+      <ScrollView>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 50
+          }}
+        >
+          <Image source={require("../assets/images/placeCardBackground.png")} />
+        </View>
+      </ScrollView>
     );
   }
 }
 
-export default Result;
+const mapStateToProps = state => ({
+  // details: state.main.pins
+});
+
+export default connect(mapStateToProps)(Result);
