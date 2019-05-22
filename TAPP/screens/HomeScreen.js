@@ -23,7 +23,6 @@ class HomeScreen extends React.Component {
   };
 
   render() {
-    console.warn("pins", this.props.pins);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -85,94 +84,132 @@ class HomeScreen extends React.Component {
             </View>
           </ImageBackground>
         </View>
-
-        <ScrollView horizontal>
-          {this.props.pins.map((pin, i) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                marginRight: 10
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  position: "absolute",
-                  zIndex: 1,
-                  right: 20,
-                  bottom: 60
-                }}
-                // onPress={() => {
-                //   this.props.navigation.navigate("Result");
-                // }}
-              >
-                <Image source={require("../assets/images/goIcon.png")} />
-              </TouchableOpacity>
+        {this.props.changePin ? (
+          <ScrollView horizontal>
+            {this.props.pins.map((pin, i) => (
               <View
+                key={i}
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  position: "absolute",
-                  zIndex: 1,
-                  paddingTop: 220,
-                  paddingRight: 90
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: 10
                 }}
               >
-                <Text
+                <TouchableOpacity
                   style={{
-                    color: "white",
-                    paddingRight: 5,
-                    fontFamily: "sf-pro-display-regular",
-
-                    fontSize: 20,
-                    letterSpacing: 0.33,
-                    lineHeight: 29
+                    position: "absolute",
+                    zIndex: 1,
+                    right: 20,
+                    bottom: 60
                   }}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("Result");
+                  // }}
                 >
-                  {pin.name}
-                </Text>
+                  <Image source={require("../assets/images/goIcon.png")} />
+                </TouchableOpacity>
                 <View
                   style={{
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
                     flexDirection: "row",
-                    backgroundColor: "white",
-                    marginLeft: 5,
-                    borderRadius: "30%",
-                    width: 50
+                    justifyContent: "space-around",
+                    position: "absolute",
+                    zIndex: 1,
+                    paddingTop: 220,
+                    paddingRight: 90
                   }}
                 >
-                  <Image source={require("../assets/images/heartIcon.png")} />
                   <Text
                     style={{
-                      color: "#1313AF",
-
+                      color: "white",
+                      paddingRight: 5,
                       fontFamily: "sf-pro-display-regular",
 
-                      fontSize: 13,
+                      fontSize: 20,
                       letterSpacing: 0.33,
-                      lineHeight: 15
+                      lineHeight: 29
                     }}
                   >
-                    {pin.rating}
+                    {pin.name}
                   </Text>
-                </View>
-              </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      backgroundColor: "white",
+                      marginLeft: 5,
+                      borderRadius: "30%",
+                      width: 50
+                    }}
+                  >
+                    <Image source={require("../assets/images/heartIcon.png")} />
+                    <Text
+                      style={{
+                        color: "#1313AF",
 
-              <Image
-                style={{ height: 300, width: 300, borderRadius: 10 }}
-                source={{
-                  uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
-                    pin.photos[0].photo_reference
-                  }&key=AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A`
+                        fontFamily: "sf-pro-display-regular",
+
+                        fontSize: 13,
+                        letterSpacing: 0.33,
+                        lineHeight: 15
+                      }}
+                    >
+                      {pin.rating}
+                    </Text>
+                  </View>
+                </View>
+
+                <Image
+                  style={{ height: 300, width: 300, borderRadius: 10 }}
+                  source={{
+                    uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
+                      pin.photos[0].photo_reference
+                    }&key=AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A`
+                  }}
+                />
+              </View>
+            ))}
+          </ScrollView>
+        ) : (
+          <LinearGradient
+            colors={["white", "#CEDCDF"]}
+            style={{
+              position: "relative",
+              left: 0,
+              right: 0,
+              top: 0,
+              flex: 3
+            }}
+          >
+            <View style={styles.body}>
+              <Text
+                style={{
+                  fontFamily: "sf-pro-display-regular",
+                  color: "rgba(128,128,128,1)",
+                  fontSize: 18,
+                  letterSpacing: 0.55,
+                  lineHeight: 21
                 }}
-              />
+              >
+                This trip is empty
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "sf-pro-display-regular",
+                  color: "rgba(172,183,185,1)",
+                  fontSize: 13,
+                  letterSpacing: 0.4,
+                  lineHeight: 15
+                }}
+              >
+                Click the blue plus to pin a place
+              </Text>
             </View>
-          ))}
-        </ScrollView>
+          </LinearGradient>
+        )}
 
         <View style={styles.footer_container}>
           <View style={styles.footer_panel}>

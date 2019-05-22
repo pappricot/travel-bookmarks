@@ -8,8 +8,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SAVE_DATA_DEV: {
-      // console.warn("dataField", action.dataField);
-      // console.warn("data", action.data);
       return {
         ...state,
         options: {
@@ -18,7 +16,6 @@ export default (state = initialState, action) => {
       };
     }
     case SAVE_PIN: {
-      console.warn("data", action.data);
       return {
         ...state,
         pins: [...state.pins, action.data]

@@ -73,17 +73,12 @@ class Search extends React.Component {
       changePin: !prevState.changePin
     }));
     this.props.dispatch(save_data_dev("changePin", true));
-    // alert("changePin", this.props);
   };
 
   render() {
-    console.warn(this.state.photo);
-
     const photoUri = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
       this.state.photo.photo_reference
     }&key=AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A`;
-
-    console.warn(photoUri);
 
     window["state"] = this.state;
 
@@ -121,6 +116,7 @@ class Search extends React.Component {
               >
                 <Image source={require("../assets/images/goIconReverse.png")} />
               </TouchableOpacity>
+
               <View
                 style={{
                   display: "flex",
@@ -180,7 +176,7 @@ class Search extends React.Component {
                   width: 500,
                   height: 500
                 }}
-                source={{ uri: photoUri }} //for google image
+                source={{ uri: photoUri }}
               />
             </View>
 
