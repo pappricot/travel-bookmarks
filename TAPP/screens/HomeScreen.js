@@ -23,6 +23,7 @@ class HomeScreen extends React.Component {
   };
 
   render() {
+    console.warn("pins", this.props.pins);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -87,22 +88,87 @@ class HomeScreen extends React.Component {
 
         <ScrollView horizontal>
           {this.props.pins.map((pin, i) => (
-            <View style={{ marginRight: 10 }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: 10
+              }}
+            >
               <TouchableOpacity
                 style={{
                   position: "absolute",
                   zIndex: 1,
                   right: 20,
-                  bottom: 90
+                  bottom: 60
                 }}
-                onPress={() => {
-                  this.props.navigation.navigate("Result");
-                }}
+                // onPress={() => {
+                //   this.props.navigation.navigate("Result");
+                // }}
               >
                 <Image source={require("../assets/images/goIcon.png")} />
               </TouchableOpacity>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  position: "absolute",
+                  zIndex: 1,
+                  paddingTop: 220,
+                  paddingRight: 90
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    paddingRight: 5,
+                    fontFamily: "sf-pro-display-regular",
+
+                    fontSize: 20,
+                    letterSpacing: 0.33,
+                    lineHeight: 29
+                  }}
+                >
+                  {pin.name}
+                </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    backgroundColor: "white",
+                    marginLeft: 5,
+                    borderRadius: "30%",
+                    width: 50
+                  }}
+                >
+                  <Image source={require("../assets/images/heartIcon.png")} />
+                  <Text
+                    style={{
+                      color: "#1313AF",
+
+                      fontFamily: "sf-pro-display-regular",
+
+                      fontSize: 13,
+                      letterSpacing: 0.33,
+                      lineHeight: 15
+                    }}
+                  >
+                    {pin.rating}
+                  </Text>
+                </View>
+              </View>
+
               <Image
-                source={require("../assets/images/placeCardBackground.png")}
+                style={{ height: 300, width: 300, borderRadius: 10 }}
+                source={{
+                  uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
+                    pin.photos[0].photo_reference
+                  }&key=AIzaSyBaSSNwo8wBkzB55idF8pBJTVfTIM00l0A`
+                }}
               />
             </View>
           ))}

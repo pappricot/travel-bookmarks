@@ -47,7 +47,8 @@ export default class App extends React.Component {
         "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
         "sf-pro-display-light": require("./assets/fonts/SF-Pro-Display-Light.otf"),
         "sf-pro-display-medium": require("./assets/fonts/SF-Pro-Display-Medium.otf"),
-        "sf-pro-display-regular": require("./assets/fonts/SF-Pro-Display-Regular.otf")
+        "sf-pro-display-regular": require("./assets/fonts/SF-Pro-Display-Regular.otf"),
+        "sf-pro-display-semibold": require("./assets/fonts/SF-Pro-Display-Semibold.otf")
       })
     ]);
   };

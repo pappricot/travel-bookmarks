@@ -18,10 +18,10 @@ export default (state = initialState, action) => {
       };
     }
     case SAVE_PIN: {
-      console.warn("data", action.address);
+      console.warn("data", action.data);
       return {
         ...state,
-        pins: [...state.pins, action.address]
+        pins: [...state.pins, action.data]
       };
     }
 

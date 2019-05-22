@@ -105,16 +105,15 @@ class Search extends React.Component {
               style={{
                 flex: 1,
                 justifyContent: "center",
-                alignItems: "center",
-                marginTop: 0
+                alignItems: "center"
               }}
             >
               <TouchableOpacity
                 style={{
                   position: "absolute",
                   zIndex: 1,
-                  left: 10,
-                  top: 40
+                  left: 20,
+                  top: 60
                 }}
                 onPress={() => {
                   this.props.navigation.navigate("HomeScreen");
@@ -122,11 +121,64 @@ class Search extends React.Component {
               >
                 <Image source={require("../assets/images/goIconReverse.png")} />
               </TouchableOpacity>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  position: "absolute",
+                  zIndex: 1,
+                  paddingTop: 350
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    paddingRight: 70,
+                    fontFamily: "sf-pro-display-regular",
+
+                    fontSize: 24,
+                    letterSpacing: 0.33,
+                    lineHeight: 29
+                  }}
+                >
+                  {this.state.name}
+                </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    backgroundColor: "white",
+                    marginLeft: 70,
+                    borderRadius: "30%",
+                    width: 50
+                  }}
+                >
+                  <Image source={require("../assets/images/heartIcon.png")} />
+                  <Text
+                    style={{
+                      color: "#1313AF",
+
+                      fontFamily: "sf-pro-display-regular",
+
+                      fontSize: 13,
+                      letterSpacing: 0.33,
+                      lineHeight: 15
+                    }}
+                  >
+                    {this.state.rating}
+                  </Text>
+                </View>
+              </View>
 
               <Image
                 style={{
-                  width: this.state.photo.width,
-                  height: this.state.photo.height
+                  // width: this.state.photo.width / 2,
+                  // height: this.state.photo.height / 2
+                  width: 500,
+                  height: 500
                 }}
                 source={{ uri: photoUri }} //for google image
               />
@@ -145,10 +197,6 @@ class Search extends React.Component {
                 borderColor: "#fff"
               }}
             >
-              <View>
-                <Text>{this.state.name}</Text>
-                <Text>{this.state.rating}</Text>
-              </View>
               <View
                 style={{
                   flex: 1,
@@ -191,6 +239,16 @@ class Search extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1, alignSelf: "center" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Image
+                    source={require("../assets/images/townPinIcon2x.png")}
+                  />
+                  <Text style={{ fontFamily: "sf-pro-display-semibold" }}>
+                    {" "}
+                    {this.state.name}
+                  </Text>
+                </View>
+
                 <Text>{this.state.address}</Text>
               </View>
               <View>

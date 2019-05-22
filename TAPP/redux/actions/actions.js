@@ -4,7 +4,7 @@ export const save_data_dev = (dataField, data) => ({
   dataField,
   data
 });
-export const save_pin = address => ({
+export const save_pin = data => ({
   type: SAVE_PIN,
-  address
+  data
 });
