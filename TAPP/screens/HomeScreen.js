@@ -35,40 +35,10 @@ class HomeScreen extends React.Component {
                 "linear-gradient(-180deg, #fdfdfd 0%, rgba(253,253,253, 0.00) 98%)"
             }}
           >
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                margin: 30,
-                paddingTop: 20
-              }}
-            >
-              <View
-                style={{
-                  flex: 4,
-                  flexDirection: "column"
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: "sf-pro-display-light",
-                    color: "rgba(10,10,10,1)",
-                    fontSize: 32,
-                    letterSpacing: 0.3,
-                    lineHeight: 38
-                  }}
-                >
-                  Good Morning
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: "sf-pro-display-medium",
-                    color: "rgba(56,56,56,1)",
-                    fontSize: 13,
-                    letterSpacing: 0.15,
-                    lineHeight: 15
-                  }}
-                >
+            <View style={styles.weatherHeaderImage}>
+              <View style={styles.weatherWrapper}>
+                <Text style={styles.goodM}>Good Morning</Text>
+                <Text style={styles.weather}>
                   Today is 72C and Sunny {this.props.changePin}
                 </Text>
               </View>
@@ -77,7 +47,7 @@ class HomeScreen extends React.Component {
                 onPress={() => {
                   this.props.navigation.navigate("Search");
                 }}
-                style={{ flex: 1 }}
+                style={styles.addButton}
               >
                 <Image source={require("./addBookmarkButton.png")} />
               </TouchableOpacity>
@@ -87,83 +57,25 @@ class HomeScreen extends React.Component {
         {this.props.changePin ? (
           <ScrollView horizontal>
             {this.props.pins.map((pin, i) => (
-              <View
-                key={i}
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: 10
-                }}
-              >
+              <View key={i} style={styles.scrollStyle}>
                 <TouchableOpacity
-                  style={{
-                    position: "absolute",
-                    zIndex: 1,
-                    right: 20,
-                    bottom: 60
-                  }}
+                  style={styles.goIcon}
                   // onPress={() => {
                   //   this.props.navigation.navigate("Result");
                   // }}
                 >
                   <Image source={require("../assets/images/goIcon.png")} />
                 </TouchableOpacity>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    position: "absolute",
-                    zIndex: 1,
-                    paddingTop: 220,
-                    paddingRight: 90
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      paddingRight: 5,
-                      fontFamily: "sf-pro-display-regular",
-
-                      fontSize: 20,
-                      letterSpacing: 0.33,
-                      lineHeight: 29
-                    }}
-                  >
-                    {pin.name}
-                  </Text>
-                  <View
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "row",
-                      backgroundColor: "white",
-                      marginLeft: 5,
-                      borderRadius: "30%",
-                      width: 50
-                    }}
-                  >
+                <View style={styles.description}>
+                  <Text style={styles.pinName}>{pin.name}</Text>
+                  <View style={styles.ratingR}>
                     <Image source={require("../assets/images/heartIcon.png")} />
-                    <Text
-                      style={{
-                        color: "#1313AF",
-
-                        fontFamily: "sf-pro-display-regular",
-
-                        fontSize: 13,
-                        letterSpacing: 0.33,
-                        lineHeight: 15
-                      }}
-                    >
-                      {pin.rating}
-                    </Text>
+                    <Text style={styles.rating}>{pin.rating}</Text>
                   </View>
                 </View>
 
                 <Image
-                  style={{ height: 300, width: 300, borderRadius: 10 }}
+                  style={styles.imageAPI}
                   source={{
                     uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
                       pin.photos[0].photo_reference
@@ -176,35 +88,11 @@ class HomeScreen extends React.Component {
         ) : (
           <LinearGradient
             colors={["white", "#CEDCDF"]}
-            style={{
-              position: "relative",
-              left: 0,
-              right: 0,
-              top: 0,
-              flex: 3
-            }}
+            style={styles.blankBookmarks}
           >
             <View style={styles.body}>
-              <Text
-                style={{
-                  fontFamily: "sf-pro-display-regular",
-                  color: "rgba(128,128,128,1)",
-                  fontSize: 18,
-                  letterSpacing: 0.55,
-                  lineHeight: 21
-                }}
-              >
-                This trip is empty
-              </Text>
-              <Text
-                style={{
-                  fontFamily: "sf-pro-display-regular",
-                  color: "rgba(172,183,185,1)",
-                  fontSize: 13,
-                  letterSpacing: 0.4,
-                  lineHeight: 15
-                }}
-              >
+              <Text style={styles.empty1}>This trip is empty</Text>
+              <Text style={styles.empty2}>
                 Click the blue plus to pin a place
               </Text>
             </View>
@@ -214,52 +102,16 @@ class HomeScreen extends React.Component {
         <View style={styles.footer_container}>
           <View style={styles.footer_panel}>
             <LinearGradient
-              // colors={["#fdfdfd", "rgba(253,253,253, 0)"]}
               colors={["white", "#CEDCDF"]}
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: 0,
-                height: "100%"
-              }}
+              style={styles.imageFooter}
             >
               <ImageBackground
                 source={require("./tripBackground.png")}
-                style={{
-                  width: "100%",
-                  height: "100%"
-                }}
+                style={styles.imageFooter1}
               >
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "flex-end",
-                    margin: 20
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "sf-pro-display-regular",
-                      color: "rgba(255,255,255,1)",
-                      fontSize: 23,
-                      letterSpacing: 0.4,
-                      lineHeight: 22
-                    }}
-                  >
-                    Exploring Louisville BBQ
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: "sf-pro-display-regular",
-                      color: "rgba(212,201,215,1)",
-                      fontSize: 16,
-                      letterSpacing: 0.28,
-                      lineHeight: 22
-                    }}
-                  >
-                    Louisville, Kentucky
-                  </Text>
+                <View style={styles.textFooteerWr}>
+                  <Text style={styles.line1}>Exploring Louisville BBQ</Text>
+                  <Text style={styles.line2}>Louisville, Kentucky</Text>
                 </View>
               </ImageBackground>
             </LinearGradient>
@@ -293,14 +145,137 @@ const styles = StyleSheet.create({
   footer_container: {
     flex: 4,
     flexDirection: "row"
-    // shadowOpacity: 0.75,
-    // shadowRadius: 15,
-    // shadowColor: "grey"
   },
   footer_panel: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0)"
+  },
+  weatherHeaderImage: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 30,
+    paddingTop: 20
+  },
+  weatherWrapper: {
+    flex: 4,
+    flexDirection: "column"
+  },
+  goodM: {
+    fontFamily: "sf-pro-display-light",
+    color: "rgba(10,10,10,1)",
+    fontSize: 32,
+    letterSpacing: 0.3,
+    lineHeight: 38
+  },
+  weather: {
+    fontFamily: "sf-pro-display-medium",
+    color: "rgba(56,56,56,1)",
+    fontSize: 13,
+    letterSpacing: 0.15,
+    lineHeight: 15
+  },
+  addButton: { flex: 1 },
+  scrollStyle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10
+  },
+  goIcon: {
+    position: "absolute",
+    zIndex: 1,
+    right: 20,
+    bottom: 60
+  },
+  description: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    zIndex: 1,
+    paddingTop: 220,
+    paddingRight: 90
+  },
+  pinName: {
+    color: "white",
+    paddingRight: 5,
+    fontFamily: "sf-pro-display-regular",
+
+    fontSize: 20,
+    letterSpacing: 0.33,
+    lineHeight: 29
+  },
+  ratingR: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "white",
+    marginLeft: 5,
+    borderRadius: 30,
+    width: 50
+  },
+  rating: {
+    color: "#1313AF",
+
+    fontFamily: "sf-pro-display-regular",
+
+    fontSize: 13,
+    letterSpacing: 0.33,
+    lineHeight: 15
+  },
+  imageAPI: { height: 300, width: 300, borderRadius: 10 },
+  blankBookmarks: {
+    position: "relative",
+    left: 0,
+    right: 0,
+    top: 0,
+    flex: 3
+  },
+  empty1: {
+    fontFamily: "sf-pro-display-regular",
+    color: "rgba(128,128,128,1)",
+    fontSize: 18,
+    letterSpacing: 0.55,
+    lineHeight: 21
+  },
+  empty2: {
+    fontFamily: "sf-pro-display-regular",
+    color: "rgba(172,183,185,1)",
+    fontSize: 13,
+    letterSpacing: 0.4,
+    lineHeight: 15
+  },
+  imageFooter: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "100%"
+  },
+  imageFooter1: {
+    width: "100%",
+    height: "100%"
+  },
+  textFooteerWr: {
+    flex: 1,
+    justifyContent: "flex-end",
+    margin: 20
+  },
+  line1: {
+    fontFamily: "sf-pro-display-regular",
+    color: "rgba(255,255,255,1)",
+    fontSize: 23,
+    letterSpacing: 0.4,
+    lineHeight: 22
+  },
+  line2: {
+    fontFamily: "sf-pro-display-regular",
+    color: "rgba(212,201,215,1)",
+    fontSize: 16,
+    letterSpacing: 0.28,
+    lineHeight: 22
   }
 });
