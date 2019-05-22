@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet
+} from "react-native";
 import MapInput from "../components/MapInput";
 import MyMapView from "../components/MapView";
 import { getLocation } from "../services/LocationService";
@@ -83,9 +90,9 @@ class Search extends React.Component {
     window["state"] = this.state;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={style.container}>
         {this.state.mapVisible ? null : (
-          <View style={{ flex: 0.4, margin: 20, top: 30 }}>
+          <View style={style.searchBar}>
             <MapInput
               notifyChange={
                 (loc => this.getCoordsFromName(loc), this.toggleMap)
@@ -96,20 +103,9 @@ class Search extends React.Component {
         )}
         {this.state.region["latitude"] && this.state.mapVisible ? (
           <ScrollView>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+            <View style={style.scrollStyle}>
               <TouchableOpacity
-                style={{
-                  position: "absolute",
-                  zIndex: 1,
-                  left: 20,
-                  top: 60
-                }}
+                style={style.backButton}
                 onPress={() => {
                   this.props.navigation.navigate("HomeScreen");
                 }}
@@ -117,90 +113,19 @@ class Search extends React.Component {
                 <Image source={require("../assets/images/goIconReverse.png")} />
               </TouchableOpacity>
 
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  position: "absolute",
-                  zIndex: 1,
-                  paddingTop: 350
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    paddingRight: 70,
-                    fontFamily: "sf-pro-display-regular",
-
-                    fontSize: 24,
-                    letterSpacing: 0.33,
-                    lineHeight: 29
-                  }}
-                >
-                  {this.state.name}
-                </Text>
-                <View
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    backgroundColor: "white",
-                    marginLeft: 70,
-                    borderRadius: "30%",
-                    width: 50
-                  }}
-                >
+              <View style={style.infoWrapper}>
+                <Text style={style.name}>{this.state.name}</Text>
+                <View style={style.ratingWr}>
                   <Image source={require("../assets/images/heartIcon.png")} />
-                  <Text
-                    style={{
-                      color: "#1313AF",
-
-                      fontFamily: "sf-pro-display-regular",
-
-                      fontSize: 13,
-                      letterSpacing: 0.33,
-                      lineHeight: 15
-                    }}
-                  >
-                    {this.state.rating}
-                  </Text>
+                  <Text style={style.ratingN}>{this.state.rating}</Text>
                 </View>
               </View>
 
-              <Image
-                style={{
-                  // width: this.state.photo.width / 2,
-                  // height: this.state.photo.height / 2
-                  width: 500,
-                  height: 500
-                }}
-                source={{ uri: photoUri }}
-              />
+              <Image style={style.imageAPI} source={{ uri: photoUri }} />
             </View>
 
-            <View
-              style={{
-                paddingLeft: 20,
-                paddingRight: 20,
-                paddingTop: 20,
-                paddingBottom: 20,
-                bottom: 20,
-                backgroundColor: "white",
-                borderRadius: 10,
-                borderWidth: 0,
-                borderColor: "#fff"
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: 10
-                }}
-              >
+            <View style={style.detail}>
+              <View style={style.pinWr}>
                 <TouchableOpacity
                   style={
                     this.state.changePin
@@ -219,30 +144,17 @@ class Search extends React.Component {
                   }
                   onPress={this.changePin}
                 >
-                  <Text
-                    style={{
-                      alignSelf: "center",
-                      marginTop: 15,
-                      fontFamily: "sf-pro-display-regular",
-                      color: "white",
-                      fontSize: 18,
-                      letterSpacing: 0.55,
-                      lineHeight: 21
-                    }}
-                  >
+                  <Text style={style.pinText}>
                     {this.state.changePin ? "Pinned to Trip" : "Pin to Trip"}
                   </Text>
                 </TouchableOpacity>
               </View>
-              <View style={{ flex: 1, alignSelf: "center" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
+              <View style={style.addressWr}>
+                <View style={style.address}>
                   <Image
                     source={require("../assets/images/townPinIcon2x.png")}
                   />
-                  <Text style={{ fontFamily: "sf-pro-display-semibold" }}>
-                    {" "}
-                    {this.state.name}
-                  </Text>
+                  <Text style={style.textInfo}> {this.state.name}</Text>
                 </View>
 
                 <Text>{this.state.address}</Text>
@@ -266,3 +178,90 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Search);
+
+const style = StyleSheet.create({
+  container: { flex: 1 },
+  searchBar: { flex: 0.4, margin: 20, top: 30 },
+  scrollStyle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  backButton: {
+    position: "absolute",
+    zIndex: 1,
+    left: 20,
+    top: 60
+  },
+  infoWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    zIndex: 1,
+    paddingTop: 350
+  },
+  name: {
+    color: "white",
+    paddingRight: 70,
+    fontFamily: "sf-pro-display-regular",
+
+    fontSize: 24,
+    letterSpacing: 0.33,
+    lineHeight: 29
+  },
+  ratingWr: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "white",
+    marginLeft: 70,
+    borderRadius: 30,
+    width: 50
+  },
+  ratingN: {
+    color: "#1313AF",
+
+    fontFamily: "sf-pro-display-regular",
+
+    fontSize: 13,
+    letterSpacing: 0.33,
+    lineHeight: 15
+  },
+  imageAPI: {
+    // width: this.state.photo.width / 2,
+    // height: this.state.photo.height / 2
+    width: 500,
+    height: 500
+  },
+  detail: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    bottom: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    borderWidth: 0,
+    borderColor: "#fff"
+  },
+  pinWr: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10
+  },
+  pinText: {
+    alignSelf: "center",
+    marginTop: 15,
+    fontFamily: "sf-pro-display-regular",
+    color: "white",
+    fontSize: 18,
+    letterSpacing: 0.55,
+    lineHeight: 21
+  },
+  addressWr: { flex: 1, alignSelf: "center" },
+  address: { flex: 1, flexDirection: "row" },
+  textInfo: { fontFamily: "sf-pro-display-semibold" }
+});
